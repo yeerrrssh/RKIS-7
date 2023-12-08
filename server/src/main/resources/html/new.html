@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Fridge</title>
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+</head>
+<body>
+<div th:replace="~{header :: header}"></div>
+
+<div class="container">
+    <h2>Новый холодильник</h2>
+    <form th:action="@{/}" th:method="POST" th:object="${fridge}" class="mt-4">
+        <div class="form-group">
+            <label for="model">Модель:</label>
+            <input type="text" id="model" name="model" th:field="*{model}" class="form-control" required>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{model}" class="alert alert-danger mt-2">
+                name Error
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="brand">Бренд:</label>
+            <input type="text" id="brand" name="brand" th:field="*{brand}" class="form-control" required>
+            <div th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}" class="alert alert-danger mt-2">
+                brand Error
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="color">Цвет:</label>
+            <input type="text" id="color" name="color" th:field="*{color}" class="form-control" required>
+            <div th:if="${#fields.hasErrors('color')}" th:errors="*{color}" class="alert alert-danger mt-2">
+                color Error
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Стоимость:</label>
+            <input type="text" inputmode="decimal" id="price" name="price" pattern="[0-9]*[.,]?[0-9]*"
+                   th:field="*{price}" class="form-control" required>
+            <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="alert alert-danger mt-2">
+                Price Error
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="quantity">Количество:</label>
+            <input type="number" id="quantity" name="quantity" th:field="*{quantity}" class="form-control" required>
+            <div th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" class="alert alert-danger mt-2">
+                Quantity Error
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Добавить холодильник</button>
+    </form>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

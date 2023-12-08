@@ -1,0 +1,105 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #4281A4;
+    color: white;
+    padding: 10px;
+    margin: 0;
+    height: 100px;
+}
+
+.container {
+    max-width: 960px;
+    margin: auto;
+    padding: 15px;
+}
+
+.card {
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    color: #D1490F;
+}
+
+.btn-primary, .btn-info {
+    background-color: #D49B70;
+    border-color: #D49B70;
+}
+
+.btn-primary:hover, .btn-info:hover {
+    background-color: #D49B70;
+    border-color: #D49B70;
+}
+
+form {
+    margin-bottom: 20px;
+    background-color: #F2E9D8;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.card_error{
+    padding: 20px;
+}
+
+.delete{
+    display: inline;
+    box-shadow: none;
+}
+
+.form-control {
+    border-radius: 0;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.flex{
+    display: flex;
+    align-items: center;
+}
+
+.logout{
+    color: black;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.login{
+    margin-top: 30px;
+}
+
+.link{
+    margin-left: 5px;
+    color: #D1490F;
+    font-weight: 600;
+    text-decoration: none;
+
+}
+
+link:hover, link:active{
+    color: #D1490F;
+    text-decoration: none;
+}

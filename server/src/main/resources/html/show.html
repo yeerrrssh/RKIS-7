@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${fridge.getName()}"></title>
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+</head>
+<body>
+<div th:replace="~{header :: header}"></div>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${fridge.name}">Модель холодильника</h5>
+            <p class="card-text" th:text="'Бренд: ' + ${fridge.brand}">Бренд</p>
+            <p class="card-text" th:text="'Цвет: ' + ${fridge.color}">Цвет</p>
+            <p class="card-text" th:text="'Стоимость: ' + ${fridge.price} + ' руб'">Стоимость</p>
+            <p class="card-text" th:text="'Количество: ' + ${fridge.quantity} + ' in stock'">Количество</p>
+            <a th:href="@{/fridge/{id}/edit(id=${fridge.id})}" class="btn btn-primary">Изменить</a>
+            <form th:action="@{/{id}(id=${fridge.id})}" method="post" class="delete">
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit" class="btn btn-danger">Удалить</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
