@@ -93,4 +93,25 @@ public class FridgeService {
     public List<Fridge> filterByName(String name) {
         return repository.findByNameContains(name);
     }
+
+    /**
+     * Уменьшает количество холодильников на 1
+     * @param id                        Идентификатор изменяемого холодильника
+     * @throws IllegalArgumentException Неверный id холодильника
+     */
+    @Transactional
+    public void buy(int id) throws IllegalArgumentException {
+        Fridge fridge = repository.findById(id).orElse(null);
+        if(fridge != null){
+            if(fridge.getQuantity() > 0){
+                fridge.setQuantity(fridge.getQuantity() - 1);
+            }
+            else{
+                throw new IllegalArgumentException("Нет холодильников для покупки");
+            }
+        }
+        else {
+            throw new IllegalArgumentException("Этот холодильник не существует");
+        }
+    }
 }

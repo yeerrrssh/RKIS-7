@@ -97,4 +97,4 @@ public class RestFridgeController {
         fridgeService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-}}
+}

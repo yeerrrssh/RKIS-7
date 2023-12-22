@@ -1,7 +1,9 @@
 package ru.fridge.fourth;
 
+import ru.fridge.fourth.messaging.MessageListener;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * Класс, запускающий работу программы

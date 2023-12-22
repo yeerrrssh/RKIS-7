@@ -1,5 +1,6 @@
 package ru.fridge.fourth.controllers;
 
+import ru.fridge.fourth.messaging.MessageProducer;
 import ru.fridge.fourth.models.Fridge;
 import ru.fridge.fourth.services.FridgeService;
 import jakarta.validation.Valid;
@@ -29,13 +30,16 @@ public class FridgeController {
      */
     private final FridgeService fridgeService;
 
+    private final MessageProducer messageProducer;
+
     /**
      * Конструктор для внедрения сервиса по работе с холодильниками
      * @param fridgeService Сервис для работы с холодильниками
      */
     @Autowired
-    public FridgeController(FridgeService fridgeService) {
+    public FridgeController(FridgeService fridgeService, MessageProducer messageProducer) {
         this.fridgeService = fridgeService;
+        this.messageProducer = messageProducer;
     }
 
     /**
@@ -105,6 +109,7 @@ public class FridgeController {
         model.addAttribute("fridge", new Fridge());
         return "new";
     }
+
     /**
      * Создает новую запись о холодильнике
      * @param fridge                Создаваемый холодильник
@@ -118,10 +123,12 @@ public class FridgeController {
                                 BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("currentPage", "new");
+            messageProducer.sendMessage("Ошибка создания холодильника");
             return "new";
         }
         fridgeService.save(fridge);
         redirectAttributes.addFlashAttribute("message", "Холодильник успешно добавлен");
+        messageProducer.sendMessage("Добавлен холодильник: " + fridge);
         return "redirect:/";
     }
 
@@ -142,9 +149,11 @@ public class FridgeController {
         }
         if (fridgeService.doesNotExist(id)) {
             logger.error("Несуществующий id {}", id);
+            messageProducer.sendMessage("Ошибка изменения объекта с id: " + id);
             return "error";
         }
         fridgeService.update(id, fridge);
+        messageProducer.sendMessage("Изменён объект: " + fridge);
         return "redirect:/";
     }
 
@@ -157,9 +166,35 @@ public class FridgeController {
     public String deleteFridge(@PathVariable("id") int id) {
         if (fridgeService.doesNotExist(id)) {
             logger.error("Несуществующий id {}", id);
+            messageProducer.sendMessage("Ошибка удаления холодильника с id:  " + id);
             return "error";
         }
+        Fridge fridge = fridgeService.findOne(id);
         fridgeService.delete(id);
+        messageProducer.sendMessage("Удалён холодильник: " + fridge);
         return "redirect:/";
+    }
+
+    /**
+     * Реализует покупку холодильника
+     * @param id    Идентификатор покупаемого холодильника
+     * @return      Перенаправление на список холодильников
+     */
+    @GetMapping("fridge/{id}/buy")
+    public String buy(@PathVariable("id") int id) {
+        Fridge fridge = fridgeService.findOne(id);
+        if(fridgeService.doesNotExist(id)){
+            messageProducer.sendMessage("Ошибка во время покупки холодильника с id: " + id);
+            return "error";
+        }
+        else{
+            try {
+                fridgeService.buy(id);
+                messageProducer.sendMessage("Холодильник: " + fridge + " был успешно куплен");
+            } catch (IllegalArgumentException e) {
+                messageProducer.sendMessage("Произошла ошибка при покупке холодильника с id: " + id);
+            }
+            return "redirect:/";
+        }
     }
 }
