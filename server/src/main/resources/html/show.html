@@ -19,6 +19,7 @@
             <p class="card-text" th:text="'Стоимость: ' + ${fridge.price} + ' руб'">Стоимость</p>
             <p class="card-text" th:text="'Количество: ' + ${fridge.quantity} + ' in stock'">Количество</p>
             <a th:href="@{/fridge/{id}/edit(id=${fridge.id})}" class="btn btn-primary">Изменить</a>
+            <a th:href="@{/fridge/{id}/buy(id=${fridge.id})}" class="btn btn-primary">Купить</a>
             <form th:action="@{/{id}(id=${fridge.id})}" method="post" class="delete">
                 <input type="hidden" name="_method" value="delete"/>
                 <button type="submit" class="btn btn-danger">Удалить</button>
