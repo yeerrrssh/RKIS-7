@@ -1,7 +1,7 @@
 package ru.fridge.rest;
 
-import ru.fasterxml.jackson.core.JsonProcessingException;
-import ru.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
